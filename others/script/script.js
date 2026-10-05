@@ -154,15 +154,20 @@
     })();
   }
 
-  // Impact: the vertical scroll moves a horizontal gallery
+  // Impact: the title fills the screen first, then each activity appears alone while scrolling
   var hs=document.getElementById('impact');
   if(hs && !reduce){
-    var htr=hs.querySelector('.htrack'), hbar=hs.querySelector('.hbar i'), dist=0;
-    var measure=function(){ dist=Math.max(0,htr.scrollWidth-innerWidth); hs.style.height=(dist+innerHeight)+'px'; };
-    var hupdate=function(){ var p=Math.min(Math.max((scrollY-hs.offsetTop)/Math.max(dist,1),0),1); htr.style.transform='translate3d('+(-p*dist)+'px,0,0)'; hbar.style.width=(p*100)+'%'; };
+    var slides=[].slice.call(hs.querySelectorAll('.hslide')), dots=[].slice.call(hs.querySelectorAll('.hdots i')), n=slides.length, step=1, cur=-1;
+    var measure=function(){ step=innerHeight*.85; hs.style.height=(innerHeight+(n-1)*step)+'px'; };
+    var hupdate=function(){
+      var i=Math.min(n-1,Math.max(0,Math.floor((scrollY-hs.offsetTop)/step+.5)));
+      if(i===cur) return; cur=i;
+      slides.forEach(function(sl,k){ sl.classList.toggle('on',k===i); sl.classList.toggle('before',k<i); });
+      dots.forEach(function(d,k){ d.classList.toggle('on',k<=i); });
+    };
     hs.classList.add('pinned'); measure(); hupdate();
-    addEventListener('resize',function(){measure();hupdate()});
-    addEventListener('load',function(){measure();hupdate()});
+    var again=function(){ measure(); cur=-1; hupdate(); };
+    addEventListener('resize',again); addEventListener('load',again);
     addEventListener('scroll',hupdate,{passive:true});
   }
 })();
