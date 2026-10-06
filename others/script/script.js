@@ -154,20 +154,37 @@
     })();
   }
 
-  // Impact: the title fills the screen first, then each activity appears alone while scrolling
-  var hs=document.getElementById('impact');
-  if(hs && !reduce){
-    var slides=[].slice.call(hs.querySelectorAll('.hslide')), dots=[].slice.call(hs.querySelectorAll('.hdots i')), n=slides.length, step=1, cur=-1;
-    var measure=function(){ step=innerHeight*.85; hs.style.height=(innerHeight+(n-1)*step)+'px'; };
-    var hupdate=function(){
-      var i=Math.min(n-1,Math.max(0,Math.floor((scrollY-hs.offsetTop)/step+.5)));
-      if(i===cur) return; cur=i;
-      slides.forEach(function(sl,k){ sl.classList.toggle('on',k===i); sl.classList.toggle('before',k<i); });
-      dots.forEach(function(d,k){ d.classList.toggle('on',k<=i); });
+  // Impact: automatic carousel (1.5 s). The active card scales up and takes the centre.
+  var is=document.querySelector('.ishow');
+  if(is){
+    var tr=is.querySelector('.itrack'), cards=[].slice.call(tr.children), dts=[].slice.call(is.querySelectorAll('.hdots button')),
+        cnt=is.querySelector('.hcount'), n=cards.length, idx=0, timer=null, paused=false, shown=false;
+    is.classList.add('auto');
+    var go=function(k,instant){
+      idx=(k+n)%n; var c=cards[idx];
+      var x=is.clientWidth/2-(c.offsetLeft+c.offsetWidth/2);
+      if(instant) tr.style.transition='none';
+      tr.style.transform='translate3d('+x+'px,0,0)';
+      if(instant){ void tr.offsetWidth; tr.style.transition=''; }
+      cards.forEach(function(el,j){ el.classList.toggle('on',j===idx); });
+      dts.forEach(function(d,j){ d.classList.toggle('on',j===idx); });
+      cnt.textContent='0'+(idx+1)+' / 0'+n;
     };
-    hs.classList.add('pinned'); measure(); hupdate();
-    var again=function(){ measure(); cur=-1; hupdate(); };
-    addEventListener('resize',again); addEventListener('load',again);
-    addEventListener('scroll',hupdate,{passive:true});
+    var stop=function(){ clearInterval(timer); timer=null; };
+    var play=function(){ stop(); if(reduce||paused||!shown||document.hidden) return; timer=setInterval(function(){ go(idx+1); },1500); };
+    go(0,true);
+    if('IntersectionObserver' in window) new IntersectionObserver(function(e){ shown=e[0].isIntersecting; play(); },{threshold:.55}).observe(is);
+    is.addEventListener('mouseenter',function(){ paused=true; stop(); });
+    is.addEventListener('mouseleave',function(){ paused=false; play(); });
+    is.addEventListener('focusin',function(){ paused=true; stop(); });
+    is.addEventListener('focusout',function(){ paused=false; play(); });
+    is.addEventListener('touchstart',function(){ paused=true; stop(); },{passive:true});
+    is.addEventListener('touchend',function(){ setTimeout(function(){ paused=false; play(); },3500); },{passive:true});
+    is.querySelector('.iprev').addEventListener('click',function(){ go(idx-1); });
+    is.querySelector('.inext').addEventListener('click',function(){ go(idx+1); });
+    dts.forEach(function(d,j){ d.addEventListener('click',function(){ go(j); }); });
+    document.addEventListener('visibilitychange',play);
+    addEventListener('resize',function(){ go(idx,true); });
+    addEventListener('load',function(){ go(idx,true); });
   }
 })();
