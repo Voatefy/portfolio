@@ -154,14 +154,16 @@
     })();
   }
 
-  // Impact: automatic carousel (1.5 s). The active card scales up and takes the centre.
+  // Impact: scrolling the page shows the cards one by one (the active card scales up and takes the centre)
   var is=document.querySelector('.ishow');
   if(is){
-    var tr=is.querySelector('.itrack'), cards=[].slice.call(tr.children), dts=[].slice.call(is.querySelectorAll('.hdots button')),
-        cnt=is.querySelector('.hcount'), n=cards.length, idx=0, timer=null, paused=false, shown=false;
+    var os=is.parentElement, tr=is.querySelector('.itrack'), cards=[].slice.call(tr.children), dts=[].slice.call(is.querySelectorAll('.hdots button')),
+        cnt=is.querySelector('.hcount'), n=cards.length, idx=-1, step=1;
     is.classList.add('auto');
+    var top0=function(){ return os.getBoundingClientRect().top+scrollY; };
+    var measure=function(){ step=innerHeight*.8; os.style.height=(innerHeight+(n-1)*step)+'px'; };
     var go=function(k,instant){
-      idx=(k+n)%n; var c=cards[idx];
+      idx=k; var c=cards[idx];
       var x=is.clientWidth/2-(c.offsetLeft+c.offsetWidth/2);
       if(instant) tr.style.transition='none';
       tr.style.transform='translate3d('+x+'px,0,0)';
@@ -170,21 +172,17 @@
       dts.forEach(function(d,j){ d.classList.toggle('on',j===idx); });
       cnt.textContent='0'+(idx+1)+' / 0'+n;
     };
-    var stop=function(){ clearInterval(timer); timer=null; };
-    var play=function(){ stop(); if(reduce||paused||!shown||document.hidden) return; timer=setInterval(function(){ go(idx+1); },1500); };
-    go(0,true);
-    if('IntersectionObserver' in window) new IntersectionObserver(function(e){ shown=e[0].isIntersecting; play(); },{threshold:.55}).observe(is);
-    is.addEventListener('mouseenter',function(){ paused=true; stop(); });
-    is.addEventListener('mouseleave',function(){ paused=false; play(); });
-    is.addEventListener('focusin',function(){ paused=true; stop(); });
-    is.addEventListener('focusout',function(){ paused=false; play(); });
-    is.addEventListener('touchstart',function(){ paused=true; stop(); },{passive:true});
-    is.addEventListener('touchend',function(){ setTimeout(function(){ paused=false; play(); },3500); },{passive:true});
-    is.querySelector('.iprev').addEventListener('click',function(){ go(idx-1); });
-    is.querySelector('.inext').addEventListener('click',function(){ go(idx+1); });
-    dts.forEach(function(d,j){ d.addEventListener('click',function(){ go(j); }); });
-    document.addEventListener('visibilitychange',play);
-    addEventListener('resize',function(){ go(idx,true); });
-    addEventListener('load',function(){ go(idx,true); });
+    var update=function(){
+      var i=Math.min(n-1,Math.max(0,Math.round((scrollY-top0())/step)));
+      if(i!==idx) go(i);
+    };
+    var toStep=function(j){ scrollTo({top:top0()+j*step,behavior:'smooth'}); };
+    measure(); go(0,true);
+    is.querySelector('.iprev').addEventListener('click',function(){ toStep(Math.max(0,idx-1)); });
+    is.querySelector('.inext').addEventListener('click',function(){ toStep(Math.min(n-1,idx+1)); });
+    dts.forEach(function(d,j){ d.addEventListener('click',function(){ toStep(j); }); });
+    addEventListener('scroll',update,{passive:true});
+    var again=function(){ measure(); go(Math.max(0,idx),true); update(); };
+    addEventListener('resize',again); addEventListener('load',again);
   }
 })();

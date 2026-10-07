@@ -379,7 +379,7 @@ body.past .topbar{opacity:1;visibility:visible;transition:opacity .35s}
 
 /* Impact: huge title, then an automatic carousel (every 1.5 s). The active card scales up and "takes the place";
    the others shrink and fade. Without JavaScript it is a plain horizontal scroller. */
-#impact.sec{padding:0}
+#impact.sec{padding:0;overflow:visible}  /* overflow:hidden would break position:sticky */
 .ititle{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:var(--strip) 6vw 0}
 .ititle>div{width:min(1200px,100%);margin:0 auto}
 .ititle h2{font-size:clamp(3.6rem,13vw,12rem);line-height:.9;letter-spacing:-.06em;font-weight:600}
@@ -415,3 +415,7 @@ body.past .topbar{opacity:1;visibility:visible;transition:opacity .35s}
 .hdots button{width:34px;height:3px;padding:0;border:0;background:rgba(255,255,255,.18);cursor:pointer;transition:background .4s}
 .hdots button.on{background:var(--accent)}
 @media(max-width:860px){.work{width:80vw}.wimg{height:36vh}.ishow.auto .work{transform:scale(.84)}}
+
+/* Impact: pinned while you scroll; each scroll step brings the next card to the centre */
+.iscroll{position:relative}
+.iscroll .ishow{position:sticky;top:0;height:100svh;min-height:0}
