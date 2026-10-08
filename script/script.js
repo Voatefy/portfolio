@@ -171,6 +171,7 @@
       cards.forEach(function(el,j){ el.classList.toggle('on',j===idx); });
       dts.forEach(function(d,j){ d.classList.toggle('on',j===idx); });
       cnt.textContent='0'+(idx+1)+' / 0'+n;
+      var im=c.querySelector('.wimg'); is.style.setProperty('--ay',(tr.offsetTop+im.offsetTop+im.offsetHeight/2)+'px');   // arrows follow the image's vertical centre
     };
     var update=function(){
       var i=Math.min(n-1,Math.max(0,Math.round((scrollY-top0())/step)));
@@ -182,6 +183,31 @@
     is.querySelector('.inext').addEventListener('click',function(){ toStep(Math.min(n-1,idx+1)); });
     dts.forEach(function(d,j){ d.addEventListener('click',function(){ toStep(j); }); });
     addEventListener('scroll',update,{passive:true});
+    // If the visitor stops scrolling, the cards move on by themselves (one every 1.5 s) until the last one.
+    var lastUser=0;
+    ['wheel','touchstart','touchmove','keydown','mousedown'].forEach(function(t){ addEventListener(t,function(){ lastUser=Date.now(); },{passive:true}); });
+    var inPin=function(){ var p=(scrollY-top0())/step; return p>=-.02 && p<n-1-.02; };
+    if(!reduce) setInterval(function(){
+      if(document.hidden || Date.now()-lastUser<1500 || !inPin()) return;
+      toStep(Math.min(n-1,idx+1));
+    },1500);
+
+    // Auto-advance: if the visitor does nothing for 1.5 s, the next card comes by itself
+    // (by scrolling the page one step, so the scroll position always stays in sync).
+    var idleT=null, programmatic=false, AUTO=1500;
+    var inView=function(){ var y=scrollY-top0(); return y>=-innerHeight*.1 && y<=(n-1)*step+innerHeight*.1; };
+    var arm=function(){ clearTimeout(idleT); if(reduce||document.hidden||idx>=n-1) return; idleT=setTimeout(tick,AUTO); };
+    var tick=function(){
+      if(!inView()||idx>=n-1){ arm(); return; }
+      programmatic=true; toStep(idx+1);
+      setTimeout(function(){ programmatic=false; },900);
+      idleT=setTimeout(tick,AUTO);
+    };
+    var userAct=function(){ programmatic=false; arm(); };
+    ['wheel','touchstart','touchmove','keydown','pointerdown'].forEach(function(ev){ addEventListener(ev,userAct,{passive:true}); });
+    addEventListener('scroll',function(){ if(!programmatic) arm(); },{passive:true});
+    document.addEventListener('visibilitychange',arm);
+    arm();
     var again=function(){ measure(); go(Math.max(0,idx),true); update(); };
     addEventListener('resize',again); addEventListener('load',again);
   }

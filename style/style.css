@@ -419,3 +419,12 @@ body.past .topbar{opacity:1;visibility:visible;transition:opacity .35s}
 /* Impact: pinned while you scroll; each scroll step brings the next card to the centre */
 .iscroll{position:relative}
 .iscroll .ishow{position:sticky;top:0;height:100svh;min-height:0}
+
+/* Impact controls: arrows sit on the left and right of the visible image */
+.ishow{--cw:min(58vw,740px)}
+.ishow.auto .ictrl{display:block;position:absolute;inset:0;pointer-events:none}
+.ictrl button{position:absolute;top:var(--ay,calc((100svh - 14px) / 2 - 106px));transform:translateY(-50%);transition:top .5s var(--ease),background .3s,border-color .3s,color .3s;width:48px;height:48px;z-index:6;pointer-events:auto;background:rgba(20,21,23,.7)}
+.iprev{left:calc(50% - var(--cw) / 2 - 74px)}
+.inext{left:calc(50% + var(--cw) / 2 + 26px)}
+.hcount{position:absolute;left:0;right:0;bottom:calc(4vh + 22px);pointer-events:none}
+@media(max-width:860px){.ishow{--cw:80vw}.iprev{left:calc(50% - var(--cw) / 2 + 10px)}.inext{left:calc(50% + var(--cw) / 2 - 58px)}}
