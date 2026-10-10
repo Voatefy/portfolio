@@ -846,20 +846,29 @@
             </div>
             <form id="chatform" novalidate>
               <div class="frow">
-                <input
-                  name="name"
-                  placeholder="Your name"
-                  autocomplete="name"
-                  required
-                  aria-label="Your name"
-                /><input
-                  type="email"
-                  name="email"
-                  placeholder="Your email"
-                  autocomplete="email"
-                  required
-                  aria-label="Your email"
-                />
+                <div class="fld">
+                  <input
+                    name="name"
+                    placeholder="Your name"
+                    autocomplete="name"
+                    maxlength="60"
+                    required
+                    aria-label="Your name"
+                    aria-describedby="e-name"
+                  /><small class="err" id="e-name" data-for="name"></small>
+                </div>
+                <div class="fld">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your email"
+                    autocomplete="email"
+                    maxlength="254"
+                    required
+                    aria-label="Your email"
+                    aria-describedby="e-email"
+                  /><small class="err" id="e-email" data-for="email"></small>
+                </div>
               </div>
               <input
                 type="text"
@@ -869,15 +878,23 @@
                 autocomplete="off"
                 aria-hidden="true"
               />
-              <div class="fsend">
-                <textarea
-                  name="message"
-                  rows="2"
-                  placeholder="Write your message…"
-                  required
-                  aria-label="Your message"
-                ></textarea
-                ><button type="submit" aria-label="Send message">→</button>
+              <div class="fld">
+                <div class="fsend">
+                  <textarea
+                    name="message"
+                    rows="1"
+                    maxlength="2000"
+                    placeholder="Write your message…"
+                    required
+                    aria-label="Your message"
+                    aria-describedby="e-message"
+                  ></textarea
+                  ><button type="submit" aria-label="Send message">→</button>
+                </div>
+                <div class="fmeta">
+                  <small class="err" id="e-message" data-for="message"></small
+                  ><small class="cnt" id="cnt">0 / 2000</small>
+                </div>
               </div>
             </form>
           </div>

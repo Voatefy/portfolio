@@ -418,18 +418,18 @@
       var p = (scrollY - top0()) / step;
       return p >= -0.02 && p < n - 1 - 0.02;
     };
-    if (!reduce)
-      setInterval(function () {
-        var now = Date.now();
-        if (
-          document.hidden ||
-          now - lastUser < 1500 ||
-          now - lastChange < 1500 ||
-          !inPin()
-        )
-          return;
-        toStep(Math.min(n - 1, idx + 1));
-      }, 40);
+    // if (!reduce)
+    //   setInterval(function () {
+    //     var now = Date.now();
+    //     if (
+    //       document.hidden ||
+    //       now - lastUser < 1500 ||
+    //       now - lastChange < 1500 ||
+    //       !inPin()
+    //     )
+    //       return;
+    //     toStep(Math.min(n - 1, idx + 1));
+    //   }, 40);
     var again = function () {
       measure();
       go(Math.max(0, idx), true);
@@ -445,6 +445,77 @@
   var form = document.getElementById("chatform"),
     msgs = document.getElementById("msgs");
   if (form) {
+    var mail = "tefiniaina.pro@gmail.com",
+      MAX = 2000;
+    var RULES = {
+      name: {
+        re: /^\p{L}[\p{L}\p{M}' .\-]{1,59}$/u,
+        msg: "Use 2 to 60 letters (spaces, hyphens, apostrophes allowed).",
+      },
+      email: {
+        re: /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(?:\.[A-Za-z0-9\-]+)*\.[A-Za-z]{2,}$/,
+        msg: "Enter a valid email, like name@example.com.",
+      },
+      message: {
+        test: function (v) {
+          return v.length >= 10 && v.length <= MAX;
+        },
+        msg: "Write between 10 and 2000 characters.",
+      },
+    };
+    var touched = {},
+      field = function (n) {
+        return form.elements[n];
+      };
+    var clean = function (n) {
+      var v = (field(n).value || "").replace(
+        /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,
+        "",
+      ); // strip control characters
+      v =
+        n === "message" ? v.replace(/\n{3,}/g, "\n\n") : v.replace(/\s+/g, " ");
+      return v.trim();
+    };
+    var check = function (n, show) {
+      var v = clean(n),
+        r = RULES[n],
+        ok = r.re ? r.re.test(v) && v.length <= 254 : r.test(v),
+        el = field(n),
+        err = form.querySelector('.err[data-for="' + n + '"]');
+      el.setAttribute("aria-invalid", !ok && show ? "true" : "false");
+      err.textContent = !ok && show ? r.msg : "";
+      return ok;
+    };
+    ["name", "email", "message"].forEach(function (n) {
+      var el = field(n);
+      el.addEventListener("blur", function () {
+        touched[n] = true;
+        check(n, true);
+      });
+      el.addEventListener("input", function () {
+        if (touched[n]) check(n, true);
+      });
+    });
+    // auto-growing message field: Enter adds a line and the box grows, the first lines stay visible
+    var ta = field("message"),
+      cnt = document.getElementById("cnt"),
+      LIMIT = 180;
+    var grow = function () {
+      ta.style.height = "auto";
+      var hgt = Math.min(ta.scrollHeight + 2, LIMIT);
+      ta.style.height = hgt + "px";
+      ta.style.overflowY = ta.scrollHeight + 2 > LIMIT ? "auto" : "hidden";
+      cnt.textContent = ta.value.length + " / " + MAX;
+    };
+    ta.addEventListener("input", grow);
+    ta.addEventListener("keydown", function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        form.requestSubmit();
+      }
+    });
+    grow();
+
     var say = function (html, out) {
       var d = document.createElement("div");
       d.className = "bub " + (out ? "out" : "in");
@@ -464,18 +535,21 @@
         }[c];
       });
     };
-    var mail = "tefiniaina.pro@gmail.com";
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var f = new FormData(form),
-        name = (f.get("name") || "").trim(),
-        email = (f.get("email") || "").trim(),
-        message = (f.get("message") || "").trim();
-      if (f.get("botcheck")) return;
-      if (!name || !/^\S+@\S+\.\S+$/.test(email) || !message) {
-        say("Please add your name, a valid email and a message.", false);
+      if (form.elements.botcheck.value) return; // bots fill the hidden field
+      var bad = null;
+      ["name", "email", "message"].forEach(function (n) {
+        touched[n] = true;
+        if (!check(n, true) && !bad) bad = n;
+      });
+      if (bad) {
+        field(bad).focus();
         return;
       }
+      var name = clean("name"),
+        email = clean("email"),
+        message = clean("message");
       say(esc(message).replace(/\n/g, "<br>"), true);
       var wait = say('<span class="dots3"><i></i><i></i><i></i></span>', false),
         btn = form.querySelector("button");
@@ -483,7 +557,14 @@
       var done = function (ok, html) {
         wait.innerHTML = html;
         btn.disabled = false;
-        if (ok) form.reset();
+        if (ok) {
+          form.reset();
+          touched = {};
+          grow();
+          ["name", "email", "message"].forEach(function (n) {
+            check(n, false);
+          });
+        }
         msgs.scrollTop = msgs.scrollHeight;
       };
       var fallback =
