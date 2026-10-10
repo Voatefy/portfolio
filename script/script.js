@@ -344,8 +344,6 @@
       idx = -1,
       step = 1;
     is.classList.add("auto");
-    var lastChange = Date.now(),
-      lastUser = 0;
     var top0 = function () {
       return os.getBoundingClientRect().top + scrollY;
     };
@@ -354,7 +352,6 @@
       os.style.height = innerHeight + (n - 1) * step + "px";
     };
     var go = function (k, instant) {
-      if (k !== idx) lastChange = Date.now();
       idx = k;
       var c = cards[idx];
       var x = is.clientWidth / 2 - (c.offsetLeft + c.offsetWidth / 2);
@@ -401,35 +398,6 @@
       });
     });
     addEventListener("scroll", update, { passive: true });
-    // Auto-advance: if the visitor does nothing for 1.5 s, the next card comes by itself, exactly 1.5 s after the previous change.
-    // It scrolls the pinned page one step (instantly, invisible) so the scroll position always stays in sync.
-    ["wheel", "touchstart", "touchmove", "keydown", "mousedown"].forEach(
-      function (t) {
-        addEventListener(
-          t,
-          function () {
-            lastUser = Date.now();
-          },
-          { passive: true },
-        );
-      },
-    );
-    var inPin = function () {
-      var p = (scrollY - top0()) / step;
-      return p >= -0.02 && p < n - 1 - 0.02;
-    };
-    // if (!reduce)
-    //   setInterval(function () {
-    //     var now = Date.now();
-    //     if (
-    //       document.hidden ||
-    //       now - lastUser < 1500 ||
-    //       now - lastChange < 1500 ||
-    //       !inPin()
-    //     )
-    //       return;
-    //     toStep(Math.min(n - 1, idx + 1));
-    //   }, 40);
     var again = function () {
       measure();
       go(Math.max(0, idx), true);
@@ -450,20 +418,33 @@
     var RULES = {
       name: {
         re: /^\p{L}[\p{L}\p{M}' .\-]{1,59}$/u,
-        msg: "Use 2 to 60 letters (spaces, hyphens, apostrophes allowed).",
+        empty: "I would love to know what to call you.",
+        fix: "Just your name is perfect: letters only, no numbers or symbols, please.",
+        ok: function (v) {
+          return "Nice to meet you, " + v.split(" ")[0] + "!";
+        },
       },
       email: {
         re: /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(?:\.[A-Za-z0-9\-]+)*\.[A-Za-z]{2,}$/,
-        msg: "Enter a valid email, like name@example.com.",
+        empty: "Your email lets me write back to you.",
+        fix: "Could you double-check it? Something like name@example.com, so my reply reaches you.",
+        ok: function () {
+          return "Perfect, I will reply right here.";
+        },
       },
       message: {
         test: function (v) {
           return v.length >= 10 && v.length <= MAX;
         },
-        msg: "Write between 10 and 2000 characters.",
+        empty: "Say hello, or tell me what is on your mind.",
+        fix: "A few more words would help me a lot: one or two sentences is great.",
+        ok: function () {
+          return "Thank you, I cannot wait to read this.";
+        },
       },
     };
-    var touched = {},
+    var nudge = null,
+      touched = {},
       field = function (n) {
         return form.elements[n];
       };
@@ -483,7 +464,13 @@
         el = field(n),
         err = form.querySelector('.err[data-for="' + n + '"]');
       el.setAttribute("aria-invalid", !ok && show ? "true" : "false");
-      err.textContent = !ok && show ? r.msg : "";
+      if (!show) {
+        err.textContent = "";
+        err.classList.remove("ok");
+        return ok;
+      }
+      err.textContent = ok ? r.ok(v) : v ? r.fix : r.empty;
+      err.classList.toggle("ok", ok);
       return ok;
     };
     ["name", "email", "message"].forEach(function (n) {
@@ -544,6 +531,13 @@
         if (!check(n, true) && !bad) bad = n;
       });
       if (bad) {
+        var t =
+          "Almost there! Just a quick look at the highlighted fields and I can read your message.";
+        if (nudge && nudge.parentNode) {
+          nudge.innerHTML = t;
+        } else {
+          nudge = say(t, false);
+        }
         field(bad).focus();
         return;
       }

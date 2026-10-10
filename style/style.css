@@ -2895,3 +2895,44 @@ body.past .topbar {
   min-height: 46px;
   transition: height .12s ease
 }
+
+/* Friendly, calm feedback instead of red errors */
+.err {
+  color: rgba(236, 253, 245, .85);
+  font-size: .74rem;
+  display: flex;
+  gap: 7px;
+  align-items: baseline
+}
+
+.err::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateY(-1px)
+}
+
+.err:empty::before {
+  display: none
+}
+
+.err.ok {
+  color: var(--accent)
+}
+
+.err.ok::before {
+  content: "✓";
+  width: auto;
+  height: auto;
+  background: none;
+  font-size: .78rem;
+  transform: none
+}
+
+#chatform [aria-invalid="true"] {
+  border-color: rgba(16, 185, 129, .6) !important;
+  border-style: dashed !important
+}
