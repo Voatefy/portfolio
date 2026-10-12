@@ -30,14 +30,14 @@
     />
     <style>
       :root {
-        --bg: #ffffff;
-        --ink: #111111;
-        --muted: #6b7280;
-        --line: #e5e7eb;
+        --bg: #0b0b0c;
+        --ink: #f5f5f5;
+        --muted: #a1a1aa;
+        --line: #303238;
         --accent: #10b981;
         --accent-dark: #047857;
-        --hover: #ecfdf5;
-        --night: #141517;
+        --hover: #173b32;
+        --night: #0b0b0c;
         --strip: 96px; /* height of the dark band (logo + menu) that stays visible above the footer */
         --font:
           "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* <- change this line (and the Google Fonts <link>) to switch the font of the whole site */
@@ -3065,6 +3065,306 @@
           transition-duration: .01ms !important;
         }
       }
+
+
+      /* ───────── GLOBAL BACKGROUND BLENDING ─────────
+         Keep section transitions soft across the whole portfolio. The page
+         backgrounds remain independent; only their upper/lower edges blend. */
+      body {
+        background: var(--night);
+      }
+      .hero,
+      .about,
+      .sec,
+      .projects,
+      .stack,
+      .method-section {
+        box-shadow:
+          inset 0 76px 92px -82px rgba(5, 5, 5, 0.92),
+          inset 0 -76px 92px -82px rgba(5, 5, 5, 0.92);
+      }
+
+      /* Make the robotics artwork enter gradually instead of starting at a
+         visible horizontal edge at the top of About. */
+      .about::after {
+        background:
+          linear-gradient(
+            180deg,
+            rgba(20, 21, 23, 0.98) 0%,
+            rgba(20, 21, 23, 0.82) 8%,
+            rgba(20, 21, 23, 0.38) 19%,
+            rgba(20, 21, 23, 0.04) 32%,
+            rgba(20, 21, 23, 0.04) 73%,
+            rgba(20, 21, 23, 0.78) 100%
+          ),
+          linear-gradient(
+            90deg,
+            var(--night) 0%,
+            rgba(20, 21, 23, 0.96) 22%,
+            rgba(20, 21, 23, 0.72) 43%,
+            rgba(20, 21, 23, 0.22) 70%,
+            rgba(20, 21, 23, 0.10) 100%
+          ),
+          radial-gradient(ellipse at 78% 52%, rgba(0, 220, 200, 0.10), transparent 48%);
+      }
+
+      /* The final contact card is intentionally light; retain its design but
+         soften its separation from the dark section above. */
+      .page3 {
+        box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.25);
+      }
+
+      @media (max-width: 860px) {
+        .hero,
+        .about,
+        .sec,
+        .projects,
+        .stack,
+        .method-section {
+          box-shadow:
+            inset 0 52px 64px -58px rgba(5, 5, 5, 0.86),
+            inset 0 -52px 64px -58px rgba(5, 5, 5, 0.86);
+        }
+        .about::after {
+          background:
+            linear-gradient(
+              180deg,
+              rgba(20, 21, 23, 0.99) 0%,
+              rgba(20, 21, 23, 0.93) 22%,
+              rgba(20, 21, 23, 0.70) 42%,
+              rgba(20, 21, 23, 0.22) 68%,
+              rgba(20, 21, 23, 0.86) 100%
+            ),
+            radial-gradient(ellipse at 78% 62%, rgba(0, 220, 200, 0.08), transparent 52%);
+        }
+      }
+
+
+      /* ───────── GLOBAL DARK BACKGROUND THEME ─────────
+         One consistent charcoal base, with subtle blue/pink ambient light.
+         Existing photo backgrounds remain layered above this base. */
+      html, body { background-color: #0b0b0c; }
+      body {
+        background-image:
+          radial-gradient(ellipse at 100% 28%, rgba(91, 15, 49, .17), transparent 35%),
+          radial-gradient(ellipse at 0% 100%, rgba(23, 36, 112, .18), transparent 32%);
+        background-attachment: fixed;
+        color: #f5f5f5;
+      }
+      .hero, .about, .sec, .method-section, .projects, .stack, .page3 {
+        background-color: #0b0b0c;
+        color: #f5f5f5;
+      }
+      .projects, .stack, .page3 {
+        background-image:
+          radial-gradient(ellipse at 100% 18%, rgba(91, 15, 49, .13), transparent 34%),
+          radial-gradient(ellipse at 0% 100%, rgba(23, 36, 112, .15), transparent 32%);
+      }
+      /* Keep the robotics photograph separate and visible over the shared base. */
+      .about::before { background-image: url("images/robotics_about_bg.jpg"); }
+      .projects, .stack { color: #f5f5f5; }
+      .projects .projects-head, .projects .projects-head h2,
+      .projects .projects-head p, .stack .section-head,
+      .stack .section-head h2, .stack .stack-item,
+      .page3, .page3 .cta-h { color: #f5f5f5; }
+      .projects .project-card, .projects .p-card, .stack .stack-item {
+        background-color: rgba(22, 23, 27, .86);
+        border-color: rgba(255, 255, 255, .12);
+      }
+      @media (max-width: 860px) { body { background-attachment: scroll; } }
+
+      /* FINAL BACKGROUND UNIFICATION
+         Every major section shares exactly the same charcoal base.
+         Keep the About robotics photo and individual card photos intact. */
+      :root {
+        --bg: #0b0b0c;
+        --night: #0b0b0c;
+      }
+      html,
+      body {
+        background-color: #0b0b0c !important;
+      }
+      body {
+        background-image:
+          radial-gradient(ellipse at 100% 28%, rgba(91, 15, 49, 0.12), transparent 35%),
+          radial-gradient(ellipse at 0% 100%, rgba(23, 36, 112, 0.13), transparent 32%);
+        background-attachment: fixed;
+      }
+      .hero,
+      .sec,
+      .method-section,
+      .projects,
+      .stack,
+      .page3 {
+        background-color: #0b0b0c !important;
+        background-image: none !important;
+      }
+      .about {
+        background-color: #0b0b0c !important;
+        background-image: none !important;
+      }
+      /* Make the bottom/top of the About image fade to the exact shared base. */
+      .about::after {
+        background:
+          linear-gradient(
+            180deg,
+            rgba(11, 11, 12, 0.98) 0%,
+            rgba(11, 11, 12, 0.80) 8%,
+            rgba(11, 11, 12, 0.34) 20%,
+            rgba(11, 11, 12, 0.04) 34%,
+            rgba(11, 11, 12, 0.04) 72%,
+            rgba(11, 11, 12, 0.72) 88%,
+            #0b0b0c 100%
+          ),
+          linear-gradient(
+            90deg,
+            #0b0b0c 0%,
+            rgba(11, 11, 12, 0.96) 22%,
+            rgba(11, 11, 12, 0.72) 43%,
+            rgba(11, 11, 12, 0.22) 70%,
+            rgba(11, 11, 12, 0.10) 100%
+          ),
+          radial-gradient(ellipse at 78% 52%, rgba(0, 220, 200, 0.08), transparent 48%);
+      }
+      /* Preserve the photograph layer itself; only its blend and base are unified. */
+      .about::before {
+        background-image: url("images/robotics_about_bg.jpg");
+      }
+      /* Preserve photos used inside project/award cards, but not section-level color bands. */
+      .project-card,
+      .p-card,
+      .work,
+      .award,
+      .c2 {
+        background-color: rgba(22, 23, 27, 0.86);
+      }
+      @media (max-width: 860px) {
+        body { background-attachment: scroll; }
+        .about::after {
+          background:
+            linear-gradient(
+              180deg,
+              rgba(11, 11, 12, 0.98) 0%,
+              rgba(11, 11, 12, 0.84) 16%,
+              rgba(11, 11, 12, 0.40) 42%,
+              rgba(11, 11, 12, 0.28) 68%,
+              #0b0b0c 100%
+            ),
+            radial-gradient(ellipse at 78% 62%, rgba(0, 220, 200, 0.07), transparent 52%);
+        }
+      }
+
+
+      /* RESTORED DISTINCT FOOTER + INTRO ANIMATION */
+      .page3 {
+        background: #e9eeeb !important;
+        color: #171a19 !important;
+        border-radius: 32px 32px 0 0;
+        box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.18);
+      }
+      .page3 .cta-h,
+      .page3 .cols,
+      .page3 .cols a,
+      .page3 .cols span,
+      .page3 .band,
+      .page3 .band a,
+      .page3 .band span {
+        color: #171a19 !important;
+      }
+      .page3 .cta-h em,
+      .page3 .lbl {
+        color: #07845f !important;
+      }
+      .page3 .val a:hover,
+      .page3 .band .cp a:hover {
+        color: #07845f !important;
+      }
+      .page3 .soc a {
+        color: #171a19 !important;
+        border-color: rgba(23, 26, 25, 0.24);
+      }
+      .page3 .soc a:hover {
+        background: rgba(7, 132, 95, 0.10);
+      }
+      .page3 .foot-bot .shape path:first-child,
+      .page3 .foot-bot .shape path:last-child {
+        fill: #dce3df;
+      }
+      .page3 .foot-bot .shape path:nth-child(2) {
+        fill: #10b981;
+      }
+      #intro {
+        background: #0b0b0c;
+        color: #f5f5f5;
+      }
+      #intro .word,
+      #intro .verdict {
+        color: #f5f5f5;
+      }
+      #intro .em,
+      #intro .ticks i.on {
+        color: #10b981;
+        border-color: #10b981;
+      }
+      @media (max-width: 860px) {
+        .page3 { background: #e9eeeb !important; }
+      }
+
+      /* FINAL FIX: intro uses the same light tone as the footer */
+      #intro {
+        background: #e9eeeb !important;
+        color: #171a19 !important;
+        box-shadow: 0 4px 0 #10b981;
+      }
+      #intro .word,
+      #intro .verdict {
+        color: #171a19 !important;
+      }
+      #intro .em,
+      #intro .ticks i.on {
+        color: #07845f !important;
+        border-color: #07845f !important;
+      }
+
+      /* Keep the complete CV button border visible on narrow screens */
+      @media (max-width: 480px) {
+        .social {
+          display: flex;
+          width: fit-content;
+          max-width: 100%;
+          box-sizing: border-box;
+          overflow: visible;
+        }
+        .social .resume-link {
+          box-sizing: border-box;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: fit-content;
+          max-width: 100%;
+          min-width: 0;
+          flex: 0 1 auto;
+          padding-left: clamp(10px, 4vw, 22px);
+          padding-right: clamp(10px, 4vw, 22px);
+          white-space: nowrap;
+          border: 1px solid rgba(255,255,255,.92);
+          margin-right: 0;
+        }
+      }
+      @media (max-width: 360px) {
+        .social .resume-link {
+          gap: 8px;
+          padding-left: 10px;
+          padding-right: 10px;
+          font-size: .68rem;
+          letter-spacing: 0;
+        }
+        .social .resume-link svg {
+          width: 15px;
+          height: 15px;
+        }
+      }
+
 </style>
   </head>
   <body class="locked">
@@ -4101,7 +4401,7 @@
           })(root);
         }
 
-        if (seen || reduce) {
+        if (reduce) {
           intro.style.display = "none";
           reveal();
         } else {
