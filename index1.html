@@ -758,6 +758,34 @@
         align-items: center;
         padding: clamp(80px, 14vh, 150px) 6vw clamp(80px, 12vh, 120px);
       }
+
+      /* 3D robotics scene for the About / Embedded Systems & Robotics section */
+      .about::before {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(90deg, var(--night) 0%, rgba(5, 5, 5, .96) 22%, rgba(5, 5, 5, .60) 48%, rgba(5, 5, 5, .08) 100%),
+          linear-gradient(0deg, var(--night) 0%, rgba(5, 5, 5, .06) 28%, rgba(5, 5, 5, .10) 78%, var(--night) 100%),
+          url("images/robotics_about_bg.jpg");
+        background-size: cover, cover, auto 100%;
+        background-position: center, center, right center;
+        background-repeat: no-repeat;
+        opacity: .96;
+      }
+      .about::after {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse at 78% 52%, rgba(0, 220, 200, .08), transparent 48%);
+      }
+      .about .a-in { z-index: 1; }
+      .about #blob { display: none; }
+
       .blob {
         position: absolute;
         left: -4vw;
@@ -1045,6 +1073,14 @@
         .about {
           padding: clamp(70px, 12vh, 110px) 6vw 64px;
           align-items: flex-start;
+        }
+        .about::before {
+          background-image:
+            linear-gradient(180deg, rgba(5, 5, 5, .98) 0%, rgba(5, 5, 5, .88) 38%, rgba(5, 5, 5, .28) 72%, rgba(5, 5, 5, .70) 100%),
+            linear-gradient(90deg, rgba(5, 5, 5, .35), rgba(5, 5, 5, .10)),
+            url("images/robotics_about_bg.jpg");
+          background-size: cover, cover, auto 58%;
+          background-position: center, center, right bottom;
         }
         .blob {
           left: -24vw;
