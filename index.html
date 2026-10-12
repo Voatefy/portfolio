@@ -3365,6 +3365,146 @@
         }
       }
 
+
+      /* ───────── FINAL DARK PAGE UNIFICATION ─────────
+         All portfolio pages now use the same deep-black background as Home.
+         Section-transition bands/shadows are removed so there is no visible
+         horizontal line when moving from one page/section to another. */
+
+      html,
+      body {
+        background: #0b0b0c !important;
+      }
+
+      .hero,
+      .about,
+      .sec,
+      .projects,
+      .stack,
+      .method-section,
+      .page3 {
+        background-color: #0b0b0c !important;
+        color: #f5f5f5 !important;
+        box-shadow: none !important;
+      }
+
+      /* Remove the dark edge bands that were creating visible horizontal
+         separators between sections. */
+      .hero,
+      .about,
+      .sec,
+      .projects,
+      .stack,
+      .method-section {
+        box-shadow: none !important;
+      }
+
+      /* Keep the About robotics image, but blend it into the exact same
+         black base instead of creating a visible page boundary. */
+      .about::after {
+        background:
+          linear-gradient(
+            180deg,
+            rgba(11, 11, 12, 0.98) 0%,
+            rgba(11, 11, 12, 0.72) 10%,
+            rgba(11, 11, 12, 0.08) 32%,
+            rgba(11, 11, 12, 0.08) 72%,
+            rgba(11, 11, 12, 0.82) 92%,
+            #0b0b0c 100%
+          ),
+          linear-gradient(
+            90deg,
+            #0b0b0c 0%,
+            rgba(11, 11, 12, 0.96) 22%,
+            rgba(11, 11, 12, 0.72) 43%,
+            rgba(11, 11, 12, 0.22) 70%,
+            rgba(11, 11, 12, 0.10) 100%
+          ),
+          radial-gradient(
+            ellipse at 78% 52%,
+            rgba(0, 220, 200, 0.08),
+            transparent 48%
+          );
+      }
+
+      /* Footer/contact page follows the same dark visual language as Home. */
+      .page3 {
+        background: #0b0b0c !important;
+        color: #f5f5f5 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+
+      .page3 .cta-h,
+      .page3 .cols,
+      .page3 .cols a,
+      .page3 .cols span,
+      .page3 .band,
+      .page3 .band a,
+      .page3 .band span {
+        color: #f5f5f5 !important;
+      }
+
+      .page3 .cta-h em,
+      .page3 .lbl {
+        color: #10b981 !important;
+      }
+
+      .page3 .val a:hover,
+      .page3 .band .cp a:hover {
+        color: #10b981 !important;
+      }
+
+      .page3 .soc a {
+        color: #f5f5f5 !important;
+        border-color: rgba(255, 255, 255, 0.24);
+      }
+
+      .page3 .soc a:hover {
+        background: rgba(16, 185, 129, 0.12);
+        border-color: #10b981;
+      }
+
+      /* Keep the footer illustration, but make its neutral parts dark so
+         the whole page remains visually consistent. */
+      .page3 .foot-bot .shape path:first-child,
+      .page3 .foot-bot .shape path:last-child {
+        fill: #17191c;
+      }
+
+      .page3 .foot-bot .shape path:nth-child(2) {
+        fill: #10b981;
+      }
+
+      .page3 .band {
+        background: #0b0b0c !important;
+        color: rgba(255, 255, 255, 0.88) !important;
+      }
+
+      /* Intro uses exactly the same black as the Home page. */
+      #intro {
+        background: #0b0b0c !important;
+        color: #f5f5f5 !important;
+        box-shadow: 0 4px 0 #10b981 !important;
+      }
+
+      #intro .word,
+      #intro .verdict {
+        color: #f5f5f5 !important;
+      }
+
+      #intro .em,
+      #intro .ticks i.on {
+        color: #10b981 !important;
+        border-color: #10b981 !important;
+      }
+
+      @media (max-width: 860px) {
+        .page3 {
+          background: #0b0b0c !important;
+        }
+      }
+
 </style>
   </head>
   <body class="locked">
