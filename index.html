@@ -566,7 +566,7 @@
         gap: 0;
         margin-top: clamp(20px, 2.5vh, 28px);
         max-width: 100%;
-        border: 1px solid rgba(255, 255, 255, .9);
+        border: 1px solid rgba(255, 255, 255, 0.9);
         color: #fff;
       }
       .social a {
@@ -577,23 +577,34 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
-        border-right: 1px solid rgba(255, 255, 255, .9);
-        transition: background .25s ease, color .25s ease;
+        border-right: 1px solid rgba(255, 255, 255, 0.9);
+        transition:
+          background 0.25s ease,
+          color 0.25s ease;
       }
-      .social a:last-child { border-right: 0; }
+      .social a:last-child {
+        border-right: 0;
+      }
       .social a:hover {
         color: #050505;
         background: #fff;
       }
-      .social svg { width: 19px; height: 19px; flex: 0 0 auto; }
+      .social svg {
+        width: 19px;
+        height: 19px;
+        flex: 0 0 auto;
+      }
       .social .resume-link {
         min-width: 190px;
-        font-size: .76rem;
+        font-size: 0.76rem;
         font-weight: 600;
-        letter-spacing: .045em;
+        letter-spacing: 0.045em;
         white-space: nowrap;
       }
-      .social .resume-link svg { width: 17px; height: 17px; }
+      .social .resume-link svg {
+        width: 17px;
+        height: 17px;
+      }
       @media (max-width: 480px) {
         /* Small-screen layout follows the reference: social icons in one box,
            with the CV action on its own row below. */
@@ -614,10 +625,12 @@
           height: 54px;
           min-height: 54px;
           padding: 0;
-          border: 1px solid rgba(255,255,255,.92);
+          border: 1px solid rgba(255, 255, 255, 0.92);
           margin-right: -1px;
         }
-        .social > a:nth-child(3) { margin-right: 0; }
+        .social > a:nth-child(3) {
+          margin-right: 0;
+        }
         .social .resume-link {
           box-sizing: border-box;
           flex: 0 0 auto;
@@ -627,15 +640,23 @@
           min-height: 54px;
           margin-top: 0;
           padding: 0 22px;
-          border: 1px solid rgba(255,255,255,.92);
-          font-size: .78rem;
-          letter-spacing: .025em;
+          border: 1px solid rgba(255, 255, 255, 0.92);
+          font-size: 0.78rem;
+          letter-spacing: 0.025em;
         }
       }
       @media (max-width: 360px) {
-        .social { row-gap: 22px; }
-        .social > a:not(.resume-link) { width: 60px; min-width: 60px; }
-        .social .resume-link { padding: 0 14px; font-size: .7rem; }
+        .social {
+          row-gap: 22px;
+        }
+        .social > a:not(.resume-link) {
+          width: 60px;
+          min-width: 60px;
+        }
+        .social .resume-link {
+          padding: 0 14px;
+          font-size: 0.7rem;
+        }
       }
 
       .scroll {
@@ -771,9 +792,25 @@
         background-position: right center;
         background-repeat: no-repeat;
         /* Fade the image's left edge instead of showing a hard vertical seam. */
-        -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 32%, rgba(0,0,0,.10) 43%, rgba(0,0,0,.55) 59%, #000 74%, #000 100%);
-        mask-image: linear-gradient(90deg, transparent 0%, transparent 32%, rgba(0,0,0,.10) 43%, rgba(0,0,0,.55) 59%, #000 74%, #000 100%);
-        opacity: .92;
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          transparent 0%,
+          transparent 32%,
+          rgba(0, 0, 0, 0.1) 43%,
+          rgba(0, 0, 0, 0.55) 59%,
+          #000 74%,
+          #000 100%
+        );
+        mask-image: linear-gradient(
+          90deg,
+          transparent 0%,
+          transparent 32%,
+          rgba(0, 0, 0, 0.1) 43%,
+          rgba(0, 0, 0, 0.55) 59%,
+          #000 74%,
+          #000 100%
+        );
+        opacity: 0.92;
       }
       .about::after {
         content: "";
@@ -783,12 +820,33 @@
         pointer-events: none;
         /* Darken behind the headline, softly blend the image, and shade the section edges. */
         background:
-          linear-gradient(90deg, var(--night) 0%, rgba(20,21,23,.96) 22%, rgba(20,21,23,.72) 43%, rgba(20,21,23,.22) 70%, rgba(20,21,23,.10) 100%),
-          linear-gradient(180deg, rgba(20,21,23,.42) 0%, transparent 18%, transparent 76%, rgba(20,21,23,.82) 100%),
-          radial-gradient(ellipse at 78% 52%, rgba(0, 220, 200, .10), transparent 48%);
+          linear-gradient(
+            90deg,
+            var(--night) 0%,
+            rgba(20, 21, 23, 0.96) 22%,
+            rgba(20, 21, 23, 0.72) 43%,
+            rgba(20, 21, 23, 0.22) 70%,
+            rgba(20, 21, 23, 0.1) 100%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(20, 21, 23, 0.42) 0%,
+            transparent 18%,
+            transparent 76%,
+            rgba(20, 21, 23, 0.82) 100%
+          ),
+          radial-gradient(
+            ellipse at 78% 52%,
+            rgba(0, 220, 200, 0.1),
+            transparent 48%
+          );
       }
-      .about .a-in { z-index: 1; }
-      .about #blob { display: none; }
+      .about .a-in {
+        z-index: 1;
+      }
+      .about #blob {
+        display: none;
+      }
 
       .blob {
         position: absolute;
@@ -892,9 +950,9 @@
         height: var(--Hs);
         display: grid;
         grid-template-columns: var(--Sw) minmax(0, 1fr);
-        grid-template-rows: calc(var(--Hs) * 0.6883) calc(
-            var(--Hs) * 0.1364
-          ) calc(var(--Hs) * 0.1753);
+        grid-template-rows:
+          calc(var(--Hs) * 0.6883) calc(var(--Hs) * 0.1364)
+          calc(var(--Hs) * 0.1753);
       }
       .shape {
         grid-column: 1;
@@ -1026,9 +1084,9 @@
         }
         .foot-bot {
           height: auto;
-          grid-template-rows: auto calc(var(--Hs) * 0.6883) calc(
-              var(--Hs) * 0.1364
-            ) calc(var(--Hs) * 0.1753);
+          grid-template-rows:
+            auto calc(var(--Hs) * 0.6883) calc(var(--Hs) * 0.1364)
+            calc(var(--Hs) * 0.1753);
         }
         .cols {
           grid-column: 1 / -1;
@@ -1081,13 +1139,35 @@
         .about::before {
           background-size: auto 58%;
           background-position: right bottom;
-          -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.12) 22%, #000 48%, #000 100%);
-          mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.12) 22%, #000 48%, #000 100%);
+          -webkit-mask-image: linear-gradient(
+            180deg,
+            transparent 0%,
+            rgba(0, 0, 0, 0.12) 22%,
+            #000 48%,
+            #000 100%
+          );
+          mask-image: linear-gradient(
+            180deg,
+            transparent 0%,
+            rgba(0, 0, 0, 0.12) 22%,
+            #000 48%,
+            #000 100%
+          );
         }
         .about::after {
           background:
-            linear-gradient(180deg, rgba(20,21,23,.98) 0%, rgba(20,21,23,.91) 34%, rgba(20,21,23,.40) 70%, rgba(20,21,23,.78) 100%),
-            linear-gradient(90deg, rgba(20,21,23,.24), rgba(20,21,23,.04));
+            linear-gradient(
+              180deg,
+              rgba(20, 21, 23, 0.98) 0%,
+              rgba(20, 21, 23, 0.91) 34%,
+              rgba(20, 21, 23, 0.4) 70%,
+              rgba(20, 21, 23, 0.78) 100%
+            ),
+            linear-gradient(
+              90deg,
+              rgba(20, 21, 23, 0.24),
+              rgba(20, 21, 23, 0.04)
+            );
         }
         .blob {
           left: -24vw;
@@ -2860,15 +2940,23 @@
       .name {
         gap: 0.22em;
       }
-    
+
       /* HERO refinement: oversized editorial typography with responsive name wrapping */
       .hero {
         background: #050505;
       }
       .bg {
         background:
-          radial-gradient(ellipse at 88% 40%, rgba(226, 29, 92, .20), transparent 29%),
-          radial-gradient(ellipse at 7% 92%, rgba(20, 48, 255, .30), transparent 25%),
+          radial-gradient(
+            ellipse at 88% 40%,
+            rgba(226, 29, 92, 0.2),
+            transparent 29%
+          ),
+          radial-gradient(
+            ellipse at 7% 92%,
+            rgba(20, 48, 255, 0.3),
+            transparent 25%
+          ),
           #050505;
       }
       .content {
@@ -2881,10 +2969,10 @@
       .hello {
         font-size: clamp(1.4rem, 3.3vw, 3.2rem);
         line-height: 1.1;
-        letter-spacing: .03em;
+        letter-spacing: 0.03em;
         text-transform: uppercase;
         color: transparent;
-        -webkit-text-stroke: 1px rgba(255,255,255,.9);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.9);
       }
       .name {
         display: flex;
@@ -2895,8 +2983,8 @@
         max-width: 100%;
         margin-top: clamp(12px, 2.5vh, 28px);
         font-size: clamp(3rem, 8.4vw, 8.4rem);
-        line-height: .92;
-        letter-spacing: -.065em;
+        line-height: 0.92;
+        letter-spacing: -0.065em;
         overflow-wrap: anywhere;
       }
       .name > span {
@@ -2904,23 +2992,25 @@
         max-width: 100%;
       }
       .hero-name-first {
-        font-size: .86em;
+        font-size: 0.86em;
       }
       .hero-name-last {
-        font-size: .78em;
-        letter-spacing: -.055em;
+        font-size: 0.78em;
+        letter-spacing: -0.055em;
       }
       .role {
         max-width: 39rem;
         line-height: 1.6;
       }
       .portrait {
-        border: 1px solid rgba(255,255,255,.15);
-        box-shadow: 0 0 0 1px rgba(255,255,255,.04), 0 25px 90px rgba(0,0,0,.6);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.04),
+          0 25px 90px rgba(0, 0, 0, 0.6);
       }
       .hero .ring-big,
       .hero .ring-dot {
-        opacity: .35;
+        opacity: 0.35;
       }
       @media (min-width: 861px) {
         .content {
@@ -2931,7 +3021,7 @@
           font-size: clamp(4.5rem, 7.1vw, 8.4rem);
         }
         .hero-name-last {
-          font-size: .72em;
+          font-size: 0.72em;
         }
       }
       @media (max-width: 860px) {
@@ -2949,30 +3039,30 @@
         }
         .name {
           font-size: clamp(2.65rem, 10.2vw, 5.8rem);
-          line-height: .96;
+          line-height: 0.96;
           width: 100%;
         }
         .hero-name-last {
-          font-size: .72em;
-          letter-spacing: -.05em;
+          font-size: 0.72em;
+          letter-spacing: -0.05em;
         }
         .hello {
           font-size: clamp(1.3rem, 5vw, 2rem);
         }
         .role {
-          font-size: clamp(.78rem, 2.5vw, 1rem);
+          font-size: clamp(0.78rem, 2.5vw, 1rem);
           max-width: 32rem;
         }
         .statement {
           max-width: 31rem;
-          font-size: clamp(.88rem, 2.8vw, 1.05rem);
+          font-size: clamp(0.88rem, 2.8vw, 1.05rem);
         }
         .cta {
           gap: 10px;
         }
         .btn {
           padding: 12px 18px;
-          font-size: .84rem;
+          font-size: 0.84rem;
         }
       }
       @media (max-width: 420px) {
@@ -2985,11 +3075,11 @@
         }
         .name {
           font-size: clamp(2.35rem, 10vw, 3rem);
-          letter-spacing: -.06em;
+          letter-spacing: -0.06em;
         }
         .hero-name-last {
-          font-size: .68em;
-          letter-spacing: -.045em;
+          font-size: 0.68em;
+          letter-spacing: -0.045em;
         }
         .cta .btn {
           padding: 11px 14px;
@@ -3007,7 +3097,9 @@
           z-index: 1;
           overflow: visible;
         }
-        .hero .rings > .ring { display: none; }
+        .hero .rings > .ring {
+          display: none;
+        }
         .hero .portrait {
           inset: 0;
           border: 0;
@@ -3021,11 +3113,17 @@
           height: 100%;
           object-fit: contain;
           object-position: bottom right;
-          filter: drop-shadow(0 18px 48px rgba(0,0,0,.28));
+          filter: drop-shadow(0 18px 48px rgba(0, 0, 0, 0.28));
         }
-        .hero .portrait::after { display: none; }
-        .hero .content { width: 59%; }
-        .hero .name { max-width: 100%; }
+        .hero .portrait::after {
+          display: none;
+        }
+        .hero .content {
+          width: 59%;
+        }
+        .hero .name {
+          max-width: 100%;
+        }
       }
       @media (max-width: 860px) {
         .hero .rings {
@@ -3037,9 +3135,11 @@
           height: 42svh;
           aspect-ratio: auto;
           z-index: 1;
-          opacity: .72;
+          opacity: 0.72;
         }
-        .hero .rings > .ring { display: none; }
+        .hero .rings > .ring {
+          display: none;
+        }
         .hero .portrait {
           inset: 0;
           border: 0;
@@ -3055,17 +3155,25 @@
           object-position: bottom right;
         }
         .hero .portrait::after {
-          background: linear-gradient(0deg, #050505 0%, rgba(5,5,5,.08) 60%, rgba(5,5,5,.18) 100%);
+          background: linear-gradient(
+            0deg,
+            #050505 0%,
+            rgba(5, 5, 5, 0.08) 60%,
+            rgba(5, 5, 5, 0.18) 100%
+          );
         }
-        .hero .content { z-index: 4; }
+        .hero .content {
+          z-index: 4;
+        }
       }
       @media (prefers-reduced-motion: reduce) {
-        .hero *, .hero *::before, .hero *::after {
-          animation-duration: .01ms !important;
-          transition-duration: .01ms !important;
+        .hero *,
+        .hero *::before,
+        .hero *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
         }
       }
-
 
       /* ───────── GLOBAL BACKGROUND BLENDING ─────────
          Keep section transitions soft across the whole portfolio. The page
@@ -3103,9 +3211,13 @@
             rgba(20, 21, 23, 0.96) 22%,
             rgba(20, 21, 23, 0.72) 43%,
             rgba(20, 21, 23, 0.22) 70%,
-            rgba(20, 21, 23, 0.10) 100%
+            rgba(20, 21, 23, 0.1) 100%
           ),
-          radial-gradient(ellipse at 78% 52%, rgba(0, 220, 200, 0.10), transparent 48%);
+          radial-gradient(
+            ellipse at 78% 52%,
+            rgba(0, 220, 200, 0.1),
+            transparent 48%
+          );
       }
 
       /* The final contact card is intentionally light; retain its design but
@@ -3131,47 +3243,94 @@
               180deg,
               rgba(20, 21, 23, 0.99) 0%,
               rgba(20, 21, 23, 0.93) 22%,
-              rgba(20, 21, 23, 0.70) 42%,
+              rgba(20, 21, 23, 0.7) 42%,
               rgba(20, 21, 23, 0.22) 68%,
               rgba(20, 21, 23, 0.86) 100%
             ),
-            radial-gradient(ellipse at 78% 62%, rgba(0, 220, 200, 0.08), transparent 52%);
+            radial-gradient(
+              ellipse at 78% 62%,
+              rgba(0, 220, 200, 0.08),
+              transparent 52%
+            );
         }
       }
-
 
       /* ───────── GLOBAL DARK BACKGROUND THEME ─────────
          One consistent charcoal base, with subtle blue/pink ambient light.
          Existing photo backgrounds remain layered above this base. */
-      html, body { background-color: #0b0b0c; }
+      html,
+      body {
+        background-color: #0b0b0c;
+      }
       body {
         background-image:
-          radial-gradient(ellipse at 100% 28%, rgba(91, 15, 49, .17), transparent 35%),
-          radial-gradient(ellipse at 0% 100%, rgba(23, 36, 112, .18), transparent 32%);
+          radial-gradient(
+            ellipse at 100% 28%,
+            rgba(91, 15, 49, 0.17),
+            transparent 35%
+          ),
+          radial-gradient(
+            ellipse at 0% 100%,
+            rgba(23, 36, 112, 0.18),
+            transparent 32%
+          );
         background-attachment: fixed;
         color: #f5f5f5;
       }
-      .hero, .about, .sec, .method-section, .projects, .stack, .page3 {
+      .hero,
+      .about,
+      .sec,
+      .method-section,
+      .projects,
+      .stack,
+      .page3 {
         background-color: #0b0b0c;
         color: #f5f5f5;
       }
-      .projects, .stack, .page3 {
+      .projects,
+      .stack,
+      .page3 {
         background-image:
-          radial-gradient(ellipse at 100% 18%, rgba(91, 15, 49, .13), transparent 34%),
-          radial-gradient(ellipse at 0% 100%, rgba(23, 36, 112, .15), transparent 32%);
+          radial-gradient(
+            ellipse at 100% 18%,
+            rgba(91, 15, 49, 0.13),
+            transparent 34%
+          ),
+          radial-gradient(
+            ellipse at 0% 100%,
+            rgba(23, 36, 112, 0.15),
+            transparent 32%
+          );
       }
       /* Keep the robotics photograph separate and visible over the shared base. */
-      .about::before { background-image: url("images/robotics_about_bg.jpg"); }
-      .projects, .stack { color: #f5f5f5; }
-      .projects .projects-head, .projects .projects-head h2,
-      .projects .projects-head p, .stack .section-head,
-      .stack .section-head h2, .stack .stack-item,
-      .page3, .page3 .cta-h { color: #f5f5f5; }
-      .projects .project-card, .projects .p-card, .stack .stack-item {
-        background-color: rgba(22, 23, 27, .86);
-        border-color: rgba(255, 255, 255, .12);
+      .about::before {
+        background-image: url("images/robotics_about_bg.jpg");
       }
-      @media (max-width: 860px) { body { background-attachment: scroll; } }
+      .projects,
+      .stack {
+        color: #f5f5f5;
+      }
+      .projects .projects-head,
+      .projects .projects-head h2,
+      .projects .projects-head p,
+      .stack .section-head,
+      .stack .section-head h2,
+      .stack .stack-item,
+      .page3,
+      .page3 .cta-h {
+        color: #f5f5f5;
+      }
+      .projects .project-card,
+      .projects .p-card,
+      .stack .stack-item {
+        background-color: rgba(22, 23, 27, 0.86);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+      @media (max-width: 860px) {
+        body {
+          background-attachment: scroll;
+        }
+      }
 
       /* FINAL BACKGROUND UNIFICATION
          Every major section shares exactly the same charcoal base.
@@ -3186,8 +3345,16 @@
       }
       body {
         background-image:
-          radial-gradient(ellipse at 100% 28%, rgba(91, 15, 49, 0.12), transparent 35%),
-          radial-gradient(ellipse at 0% 100%, rgba(23, 36, 112, 0.13), transparent 32%);
+          radial-gradient(
+            ellipse at 100% 28%,
+            rgba(91, 15, 49, 0.12),
+            transparent 35%
+          ),
+          radial-gradient(
+            ellipse at 0% 100%,
+            rgba(23, 36, 112, 0.13),
+            transparent 32%
+          );
         background-attachment: fixed;
       }
       .hero,
@@ -3209,7 +3376,7 @@
           linear-gradient(
             180deg,
             rgba(11, 11, 12, 0.98) 0%,
-            rgba(11, 11, 12, 0.80) 8%,
+            rgba(11, 11, 12, 0.8) 8%,
             rgba(11, 11, 12, 0.34) 20%,
             rgba(11, 11, 12, 0.04) 34%,
             rgba(11, 11, 12, 0.04) 72%,
@@ -3222,9 +3389,13 @@
             rgba(11, 11, 12, 0.96) 22%,
             rgba(11, 11, 12, 0.72) 43%,
             rgba(11, 11, 12, 0.22) 70%,
-            rgba(11, 11, 12, 0.10) 100%
+            rgba(11, 11, 12, 0.1) 100%
           ),
-          radial-gradient(ellipse at 78% 52%, rgba(0, 220, 200, 0.08), transparent 48%);
+          radial-gradient(
+            ellipse at 78% 52%,
+            rgba(0, 220, 200, 0.08),
+            transparent 48%
+          );
       }
       /* Preserve the photograph layer itself; only its blend and base are unified. */
       .about::before {
@@ -3239,21 +3410,26 @@
         background-color: rgba(22, 23, 27, 0.86);
       }
       @media (max-width: 860px) {
-        body { background-attachment: scroll; }
+        body {
+          background-attachment: scroll;
+        }
         .about::after {
           background:
             linear-gradient(
               180deg,
               rgba(11, 11, 12, 0.98) 0%,
               rgba(11, 11, 12, 0.84) 16%,
-              rgba(11, 11, 12, 0.40) 42%,
+              rgba(11, 11, 12, 0.4) 42%,
               rgba(11, 11, 12, 0.28) 68%,
               #0b0b0c 100%
             ),
-            radial-gradient(ellipse at 78% 62%, rgba(0, 220, 200, 0.07), transparent 52%);
+            radial-gradient(
+              ellipse at 78% 62%,
+              rgba(0, 220, 200, 0.07),
+              transparent 52%
+            );
         }
       }
-
 
       /* RESTORED DISTINCT FOOTER + INTRO ANIMATION */
       .page3 {
@@ -3284,7 +3460,7 @@
         border-color: rgba(23, 26, 25, 0.24);
       }
       .page3 .soc a:hover {
-        background: rgba(7, 132, 95, 0.10);
+        background: rgba(7, 132, 95, 0.1);
       }
       .page3 .foot-bot .shape path:first-child,
       .page3 .foot-bot .shape path:last-child {
@@ -3307,7 +3483,9 @@
         border-color: #10b981;
       }
       @media (max-width: 860px) {
-        .page3 { background: #e9eeeb !important; }
+        .page3 {
+          background: #e9eeeb !important;
+        }
       }
 
       /* FINAL FIX: intro uses the same light tone as the footer */
@@ -3347,7 +3525,7 @@
           padding-left: clamp(10px, 4vw, 22px);
           padding-right: clamp(10px, 4vw, 22px);
           white-space: nowrap;
-          border: 1px solid rgba(255,255,255,.92);
+          border: 1px solid rgba(255, 255, 255, 0.92);
           margin-right: 0;
         }
       }
@@ -3356,7 +3534,7 @@
           gap: 8px;
           padding-left: 10px;
           padding-right: 10px;
-          font-size: .68rem;
+          font-size: 0.68rem;
           letter-spacing: 0;
         }
         .social .resume-link svg {
@@ -3364,7 +3542,6 @@
           height: 15px;
         }
       }
-
 
       /* ───────── FINAL DARK PAGE UNIFICATION ─────────
          All portfolio pages now use the same deep-black background as Home.
@@ -3418,7 +3595,7 @@
             rgba(11, 11, 12, 0.96) 22%,
             rgba(11, 11, 12, 0.72) 43%,
             rgba(11, 11, 12, 0.22) 70%,
-            rgba(11, 11, 12, 0.10) 100%
+            rgba(11, 11, 12, 0.1) 100%
           ),
           radial-gradient(
             ellipse at 78% 52%,
@@ -3469,7 +3646,7 @@
          the whole page remains visually consistent. */
       .page3 .foot-bot .shape path:first-child,
       .page3 .foot-bot .shape path:last-child {
-        fill: #17191c;
+        fill: #fdfeff;
       }
 
       .page3 .foot-bot .shape path:nth-child(2) {
@@ -3504,8 +3681,7 @@
           background: #0b0b0c !important;
         }
       }
-
-</style>
+    </style>
   </head>
   <body class="locked">
     <div class="cur cur-ring" aria-hidden="true"></div>
@@ -3620,7 +3796,8 @@
             data-cur="name"
             aria-label="TEFY, Tefiniaina Fanomezantsoa"
           >
-          <span class="hero-name-first">Tefiniaina</span><span class="hero-name-last">FANOMEZANTSOA</span>
+            <span class="hero-name-first">Tefiniaina</span
+            ><span class="hero-name-last">FANOMEZANTSOA</span>
           </h1>
           <p class="role rv" style="--d: 0.35s">
             Computer Science Student | Aspiring Embedded Systems &amp; Robotics
@@ -3630,19 +3807,74 @@
             <span class="st-k">Driven by</span><strong>Curiosity</strong> to
             learn new and useful things.
           </p>
-          <div class="social rv" style="--d: 0.65s" aria-label="Social links and CV">
-            <a href="https://www.linkedin.com/in/tefiniaina-fanomezantsoa-6258973a5/"
-               target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"/></svg>
+          <div
+            class="social rv"
+            style="--d: 0.65s"
+            aria-label="Social links and CV"
+          >
+            <a
+              href="https://www.linkedin.com/in/tefiniaina-fanomezantsoa-6258973a5/"
+              target="_blank"
+              rel="noopener"
+              aria-label="LinkedIn"
+              title="LinkedIn"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"
+                />
+              </svg>
             </a>
-            <a href="https://github.com/voatefy/" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.53v-2.08c-3.1.67-3.76-1.32-3.76-1.32-.5-1.28-1.23-1.62-1.23-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.92.1-.72.39-1.21.7-1.49-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.12-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.68.12 2.96.71.78 1.14 1.78 1.14 3.01 0 4.29-2.61 5.23-5.1 5.51.4.35.75 1.03.75 2.08V22c0 .29.2.64.76.53A11.1 11.1 0 0 0 12 .9Z"/></svg>
+            <a
+              href="https://github.com/voatefy/"
+              target="_blank"
+              rel="noopener"
+              aria-label="GitHub"
+              title="GitHub"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.53v-2.08c-3.1.67-3.76-1.32-3.76-1.32-.5-1.28-1.23-1.62-1.23-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.92.1-.72.39-1.21.7-1.49-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.12-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.68.12 2.96.71.78 1.14 1.78 1.14 3.01 0 4.29-2.61 5.23-5.1 5.51.4.35.75 1.03.75 2.08V22c0 .29.2.64.76.53A11.1 11.1 0 0 0 12 .9Z"
+                />
+              </svg>
             </a>
-            <a href="mailto:tefiniaina.pro@gmail.com" aria-label="Email" title="Email">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>
+            <a
+              href="mailto:tefiniaina.pro@gmail.com"
+              aria-label="Email"
+              title="Email"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="3" y="5" width="18" height="14" rx="1" />
+                <path d="m3 7 9 6 9-6" />
+              </svg>
             </a>
-            <a class="resume-link" href="cv.pdf" target="_blank" rel="noopener" aria-label="Download CV">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v11m-4-4 4 4 4-4"/><path d="M5 16v4h14v-4"/></svg>
+            <a
+              class="resume-link"
+              href="cv.pdf"
+              target="_blank"
+              rel="noopener"
+              aria-label="Download CV"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 3v11m-4-4 4 4 4-4" />
+                <path d="M5 16v4h14v-4" />
+              </svg>
               <span>DOWNLOAD RESUME</span>
             </a>
           </div>
@@ -4652,12 +4884,18 @@
         if (cv) {
           var ctx = cv.getContext("2d"),
             dpr = Math.min(window.devicePixelRatio || 1, 2),
-            W = 0, H = 0, vis = true, nodes = [],
-            reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            W = 0,
+            H = 0,
+            vis = true,
+            nodes = [],
+            reduceMotion =
+              window.matchMedia &&
+              window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
           function size() {
             var r = cv.getBoundingClientRect();
-            W = r.width; H = r.height;
+            W = r.width;
+            H = r.height;
             cv.width = Math.round(W * dpr);
             cv.height = Math.round(H * dpr);
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -4671,10 +4909,10 @@
               nodes.push({
                 x: Math.random() * W,
                 y: Math.random() * H,
-                vx: (Math.random() - .5) * .12,
-                vy: (Math.random() - .5) * .10,
-                r: Math.random() * 1.15 + .7,
-                phase: Math.random() * Math.PI * 2
+                vx: (Math.random() - 0.5) * 0.12,
+                vy: (Math.random() - 0.5) * 0.1,
+                r: Math.random() * 1.15 + 0.7,
+                phase: Math.random() * Math.PI * 2,
               });
             }
           }
@@ -4686,24 +4924,30 @@
             for (var i = 0; i < nodes.length; i++) {
               var a = nodes[i];
               if (!reduceMotion) {
-                a.x += a.vx; a.y += a.vy;
+                a.x += a.vx;
+                a.y += a.vy;
                 if (a.x < 0 || a.x > W) a.vx *= -1;
                 if (a.y < 0 || a.y > H) a.vy *= -1;
               }
               for (var j = i + 1; j < nodes.length; j++) {
-                var b = nodes[j], dx = a.x - b.x, dy = a.y - b.y;
+                var b = nodes[j],
+                  dx = a.x - b.x,
+                  dy = a.y - b.y;
                 var dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < 118) {
-                  var alpha = (1 - dist / 118) * .095;
+                  var alpha = (1 - dist / 118) * 0.095;
                   ctx.strokeStyle = "rgba(110,231,183," + alpha + ")";
-                  ctx.lineWidth = .7;
-                  ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                  ctx.lineWidth = 0.7;
+                  ctx.beginPath();
+                  ctx.moveTo(a.x, a.y);
+                  ctx.lineTo(b.x, b.y);
+                  ctx.stroke();
                 }
               }
             }
             // Soft mint pinpoints with a slow, barely visible breathing effect.
             nodes.forEach(function (n) {
-              var opacity = .25 + (Math.sin(t * .65 + n.phase) + 1) * .12;
+              var opacity = 0.25 + (Math.sin(t * 0.65 + n.phase) + 1) * 0.12;
               ctx.beginPath();
               ctx.fillStyle = "rgba(167,243,208," + opacity + ")";
               ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
@@ -4715,8 +4959,14 @@
           if (reduceMotion) {
             draw(0);
           } else {
-            if ("IntersectionObserver" in window) new IntersectionObserver(function (e) { vis = e[0].isIntersecting; }).observe(cv);
-            (function frame(ms) { if (vis) draw(ms); requestAnimationFrame(frame); })(0);
+            if ("IntersectionObserver" in window)
+              new IntersectionObserver(function (e) {
+                vis = e[0].isIntersecting;
+              }).observe(cv);
+            (function frame(ms) {
+              if (vis) draw(ms);
+              requestAnimationFrame(frame);
+            })(0);
           }
         }
 
